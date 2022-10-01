@@ -1,0 +1,63 @@
+{
+  "name": "Finance Assistant",
+  "description": "Finance Assistant!",
+  "version": "2.4",
+  "manifest_version": 3,
+  "content_scripts": [
+    {
+      "matches": [
+        "https://silver.hafezbrokerage.com/*", 
+        "https://silver.hafezbroker.ir/*",
+        "https://mobile.hafezbroker.ir/*",
+        "https://mofidonline.com/*", 
+        "https://online.agah.com/*", 
+        "https://farabixo.com/*", 
+        "https://bsbourse.exirbroker.com/*", 
+        "https://silver.kharazmibroker.ir/*",
+        "https://d.easytrader.emofid.com/*",
+        "https://nahayatnegar.com/*",
+        "https://www.nahayatnegar.com/*",
+        "https://tadbir.exirbroker.com/*",
+        "https://tadbir.exirbroker.ir/*",
+        "https://pranatrader.ir/*"
+      ],
+      "js": [
+        "jquery.min.js",
+        "myscript.js"
+      ]
+    }
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "permissions": [
+    "storage",
+    "tabs",
+    "activeTab",
+    "scripting"
+  ],
+  "optional_permissions": [
+    
+  ],
+
+  "host_permissions": [
+    "*://*/*"
+  ],
+
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "/images/get_started16.png",
+      "32": "/images/get_started32.png",
+      "48": "/images/get_started48.png",
+      "128": "/images/get_started128.png"
+    }
+  },
+  "icons": {
+    "16": "/images/get_started16.png",
+    "32": "/images/get_started32.png",
+    "48": "/images/get_started48.png",
+    "128": "/images/get_started128.png"
+  },
+  "options_page": "options.html"
+}
