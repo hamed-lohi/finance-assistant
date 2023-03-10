@@ -23,6 +23,10 @@
 
 var btnBuy = "";
 var btnSell = "";
+var pBtnSell;
+var flagw = true;
+var flaguw = true;
+
 var startIntervalId;
 var senceIntervalId;
 
@@ -37,7 +41,7 @@ var additionalHtml =
   '<input class="ng-pristine ng-valid ng-not-empty ng-touched" type="checkbox" id="startSenceTime" style="max-width: 100px; margin-right: 4px;">' +
   "</div>";
 
-  const p2e = s => s.replace(/[۰-۹]/g, d => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d));
+const p2e = (s) => s.replace(/[۰-۹]/g, (d) => "۰۱۲۳۴۵۶۷۸۹".indexOf(d));
 
 $(window).on("load", function () {
   // Code here
@@ -72,6 +76,7 @@ $(window).on("load", function () {
     let hajmMin = Number(hajmMinElement.val().replace(/,/g, ""));
     let priceMin = Number(priceMinElement.val().replace(/,/g, ""));
 
+    let minHajmForBuy;
     let hajm;
     let pricem;
 
@@ -131,50 +136,60 @@ $(window).on("load", function () {
 
         btnBuy = btnSell = ".tiny.button.bbc-nassim.submit.ng-binding.success";
       }
-
     } else if (window.location.host == "mobile.hafezbroker.ir") {
       if ($(".open.side-86")) {
         // sell
 
-        var hm1= $("#stockqueue_0_BestBuyLimitPrice span.qu").text();
-        hajm = Number(
-          hm1.replace(/,/g, "").trim()
-        );
+        var hm1 = $("#stockqueue_0_BestBuyLimitPrice span.qu").text();
+        hajm = Number(hm1.replace(/,/g, "").trim());
         var pr1 = $("#stockqueue_0_BestBuyLimitPrice span.pr")[0].innerText;
-        if(pr1){
-          pricem = Number(
-            pr1.replace(/,/g, "")
-              .trim()
-          );
+        if (pr1) {
+          pricem = Number(pr1.replace(/,/g, "").trim());
         }
-
       } else if ($(".open.side-65")) {
         // buy
         var hm2 = $("#stockqueue_0_BestSellLimitPrice span.qu").text();
-        hajm = Number(
-          hm2.replace(/,/g, "")
-            .trim()
-        );
+        hajm = Number(hm2.replace(/,/g, "").trim());
       }
 
       btnBuy = btnSell = ".footer .send";
 
-
       // counter++;
       // window.document.title = counter;
-
-
     } else {
       if ($(".orderside65.ordertabs").hasClass("active")) {
         // sell
         hajm = Number(
           $("#stockqueue_0_BestSellLimitQuantity .txt").text().replace(/,/g, "")
         );
+        minHajmForBuy = Number(
+          $("#stockqueue_0_BestBuyLimitQuantity .txt").text().replace(/,/g, "")
+        );
       } else {
         //  buy
         hajm = Number(
           $("#stockqueue_0_BestBuyLimitQuantity .txt").text().replace(/,/g, "")
         );
+      }
+    }
+
+    if (!pBtnSell) {
+      pBtnSell = $(btnSell).parent();
+    }
+
+    if (minHajmForBuy && minHajmForBuy < 500000) {
+      if (flagw){
+        $(btnSell).fadeOut(50).parent().append('<div id="send_order_btnSendOrder_fake" style="opacity:0.5;" class="tp-w-100 tp-center tp-3d-bu-gr">خرید</div>'); //.show(200);//.hide();
+        flagw = false;
+        flaguw = true;
+      }
+    } else {
+      
+      if (flaguw){
+        $("#send_order_btnSendOrder_fake").remove(); //.html($(btnSell).clone( true )).show(200);//.show();
+        $(btnSell).fadeIn(100);
+        flagw = true;
+        flaguw = false;
       }
     }
 
@@ -249,22 +264,27 @@ function addElementsAndBindEvents() {
     // $(".collapse.row.tabs .small-8.columns.tab.ng-binding:eq(1)").click(()=>{btnBuy = btnSell = ".tiny.button.bbc-nassim.submit.ng-binding.success"});
 
     //btnBuy = btnSell = ".tiny.button.bbc-nassim.submit.ng-binding.success";
-  } else if (
-    window.location.host == "mobile.hafezbroker.ir"
-  ) {
-    
+  } else if (window.location.host == "mobile.hafezbroker.ir") {
     $("#sendorder-container .inputs").append(additionalHtml);
 
-    $("#sendorder-container .keys>div").css({"margin": "2px", "font-size": "16px", "height": "40px", "line-height": "40px"});
-    $("#sendorder-container .border").css({"margin": "2px", "font-size": "14px", "height": "38px", "padding": "2px 3px 0"});
+    $("#sendorder-container .keys>div").css({
+      margin: "2px",
+      "font-size": "16px",
+      height: "40px",
+      "line-height": "40px",
+    });
+    $("#sendorder-container .border").css({
+      margin: "2px",
+      "font-size": "14px",
+      height: "38px",
+      padding: "2px 3px 0",
+    });
 
     // $(".collapse.row.tabs .small-8.columns.tab.ng-binding:eq(2)").click(()=>{btnBuy = btnSell = ".tiny.button.bbc-nassim.submit.ng-binding.ignore"});
     // $(".collapse.row.tabs .small-8.columns.tab.ng-binding:eq(1)").click(()=>{btnBuy = btnSell = ".tiny.button.bbc-nassim.submit.ng-binding.success"});
 
     //btnBuy = btnSell = ".tiny.button.bbc-nassim.submit.ng-binding.success";
-  }
-  
-  else {
+  } else {
     $("div.main").append(
       additionalHtml
       // '<div class="tp-ma-r-5 pricecontainer "><div><div class="tp-h-30"></div><div class="send_order_txtPriceContainer tp-te-bo invalid-value" style="width: 90px; padding-left: 0"><input type="text" id="hajm" placeholder="حداقل صف"  maxlength="12" allownegative="false" class="send_order_txtPrice number" dir="ltr" autocomplete="off" tick-size="10" /></div></div></div>' +
