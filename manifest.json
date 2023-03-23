@@ -1,7 +1,7 @@
 {
   "name": "Finance Assistant",
   "description": "Finance Assistant!",
-  "version": "2.6",
+  "version": "2.7",
   "manifest_version": 3,
   "content_scripts": [
     {
@@ -19,11 +19,13 @@
         "https://www.nahayatnegar.com/*",
         "https://tadbir.exirbroker.com/*",
         "https://tadbir.exirbroker.ir/*",
-        "https://pranatrader.ir/*"
+        "https://pranatrader.ir/*",
+        "http://www.tsetmc.com/*"
       ],
       "js": [
         "jquery.min.js",
-        "myscript.js"
+        "myscript.js",
+        "tsetmc-script.js"
       ]
     }
   ],
