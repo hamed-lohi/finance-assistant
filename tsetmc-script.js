@@ -7,8 +7,8 @@ $(window).on("load", function () {
 
 
   $("#header0").append(
-    '<div id="clear-del-divs' +
-      '" class="t0head" style="width:30px" tooltip="حذف لیست" ><span style="color:blue"> C </span><div/>'
+    '<div id="clear-del-divs"' +
+      ' class="t0head" style="width:30px" tooltip="حذف لیست" ><span style="color:blue; font-weight: bold;"> C </span><div/>'
     // '<div class="quantity-part" style="margin-top: 2px;"><input type="text" id="timeSence" placeholder="8:44:58:500" value="8:44:58:000" maxlength="12" allownegative="false" class="send_order_txtPrice number" dir="ltr" autocomplete="off" tick-size="10" />' +
     //   '<input class="ng-pristine ng-valid ng-not-empty ng-touched" type="checkbox" id="startSenceTime" name="startedSendRequest"></div></div>'
   );
