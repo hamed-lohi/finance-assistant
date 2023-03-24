@@ -1,12 +1,11 @@
 //const p2e = (s) => s.replace(/[۰-۹]/g, (d) => "۰۱۲۳۴۵۶۷۸۹".indexOf(d));
 var rmArr = [];
+var flag = false;
 
 $(window).on("load", function () {
-
   if (window.location.host != "www.tsetmc.com") return;
 
-
-  $("#header0").append(
+  $("#header0, #header").append(
     '<div id="clear-del-divs"' +
       ' class="t0head" style="width:30px" tooltip="حذف لیست" ><span style="color:blue; font-weight: bold;"> C </span><div/>'
     // '<div class="quantity-part" style="margin-top: 2px;"><input type="text" id="timeSence" placeholder="8:44:58:500" value="8:44:58:000" maxlength="12" allownegative="false" class="send_order_txtPrice number" dir="ltr" autocomplete="off" tick-size="10" />' +
@@ -18,9 +17,8 @@ $(window).on("load", function () {
       console.log("Value is set to []");
 
       rmArr.forEach((dv) => {
-        $("#"+dv).show();
+        $("#" + dv).show();
       });
-
     });
     //chrome.storage.sync.set({ counter:myCounter });
   });
@@ -41,9 +39,11 @@ $(window).on("load", function () {
   //   console.log("Value currently is " + result.key);
   // });
 
-  setTimeout(function () {
+  //setTimeout(function () {
+  setInterval(function () {
     //alert("Hi !");
 
+    if (flag) return;
     chrome.storage.local.get(["idd"]).then((result) => {
       rmArr = result.idd ? result.idd : [];
       console.log(rmArr);
@@ -66,20 +66,22 @@ $(window).on("load", function () {
           //   '<input class="ng-pristine ng-valid ng-not-empty ng-touched" type="checkbox" id="startSenceTime" name="startedSendRequest"></div></div>'
         );
 
+        flag = true;
+
         $("#del-btn-div-" + idd).click(() => {
           //alert(idd);
           rmArr.push("" + idd);
           chrome.storage.local.set({ idd: rmArr }).then(() => {
-            $("#"+idd).hide();
+            $("#" + idd).hide();
             console.log("Value is set to " + idd);
           });
           //chrome.storage.sync.set({ counter:myCounter });
         });
       });
     });
-  }, 1500);
+  }, 500);
 
-  setInterval(function () {}, 600);
+  //setInterval(function () {}, 600);
 
   // }
 });
