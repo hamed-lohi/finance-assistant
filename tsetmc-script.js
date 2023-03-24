@@ -53,7 +53,7 @@ $(window).on("load", function () {
       divs.each(function (i) {
         let idd = $(this).prop("id");
 
-        if (rmArr.some((x) => x == idd)) {
+        if (rmArr && rmArr.some((x) => x == idd)) {
           //console.log("iid = " + idd);
           $(this).hide();
         }
