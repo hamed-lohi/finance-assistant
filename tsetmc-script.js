@@ -46,7 +46,7 @@ $(window).on("load", function () {
     //if (flag) return;
     chrome.storage.local.get(["idd"]).then((result) => {
       rmArr = result.idd ? result.idd : [];
-      console.log(rmArr);
+      //console.log(rmArr);
 
       let divs = $("#display #main>div");
 
