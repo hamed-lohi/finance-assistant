@@ -43,7 +43,7 @@ $(window).on("load", function () {
   setInterval(function () {
     //alert("Hi !");
 
-    if (flag) return;
+    //if (flag) return;
     chrome.storage.local.get(["idd"]).then((result) => {
       rmArr = result.idd ? result.idd : [];
       console.log(rmArr);
@@ -58,6 +58,8 @@ $(window).on("load", function () {
           $(this).hide();
         }
 
+        if ($("#del-btn-div-" + idd).length) return;
+
         $(this).append(
           '<div id="del-btn-div-' +
             idd +
@@ -66,7 +68,7 @@ $(window).on("load", function () {
           //   '<input class="ng-pristine ng-valid ng-not-empty ng-touched" type="checkbox" id="startSenceTime" name="startedSendRequest"></div></div>'
         );
 
-        flag = true;
+        //flag = true;
 
         $("#del-btn-div-" + idd).click(() => {
           //alert(idd);
