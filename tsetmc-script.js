@@ -1,5 +1,6 @@
 //const p2e = (s) => s.replace(/[۰-۹]/g, (d) => "۰۱۲۳۴۵۶۷۸۹".indexOf(d));
 var rmArr = [];
+var chArr = [];
 var flag = false;
 
 $(window).on("load", function () {
@@ -7,7 +8,7 @@ $(window).on("load", function () {
 
   $("#header0, #header").append(
     '<div id="clear-del-divs"' +
-      ' class="t0head" style="width:30px" tooltip="حذف لیست" ><span style="color:blue; font-weight: bold;"> C </span><div/>'
+      ' class="t0head" style="width:45px" tooltip="حذف لیست" ><span style="color:blue; font-weight: bold;"> C </span><div/>'
     // '<div class="quantity-part" style="margin-top: 2px;"><input type="text" id="timeSence" placeholder="8:44:58:500" value="8:44:58:000" maxlength="12" allownegative="false" class="send_order_txtPrice number" dir="ltr" autocomplete="off" tick-size="10" />' +
     //   '<input class="ng-pristine ng-valid ng-not-empty ng-touched" type="checkbox" id="startSenceTime" name="startedSendRequest"></div></div>'
   );
@@ -51,7 +52,25 @@ $(window).on("load", function () {
       let divs = $("#display #main>div");
 
       divs.each(function (i) {
+
         let idd = $(this).prop("id");
+
+        var title ="";
+        var el = $("#"+idd+" span[title*='حجم مبنا']")[0];
+        if(el){
+          title = $(el).attr("title");
+        }
+        
+        
+        // $($("#14079693677610396 span[title*='حجم مبنا']")[0]).attr("title")
+        if(!chArr.some((x) => x.id == idd && x.title == title))
+        {
+          chArr.push({id:idd, title:title, time: Date.now()});
+          chArr = chArr.filter((x) => x.time > (Date.now()-50000));
+          //console.log(chArr);
+        }
+        
+        var chCount = chArr.filter((x) => x.id == idd).length;
 
         if (rmArr && rmArr.some((x) => x == idd)) {
           //console.log("iid = " + idd);
@@ -63,7 +82,7 @@ $(window).on("load", function () {
         $(this).append(
           '<div id="del-btn-div-' +
             idd +
-            '" class="t0c" style="width:25px" tooltip="حذف از لیست" ><span style="color:red"> X </span><div/>'
+            '" class="t0c" style="width:45px" tooltip="حذف از لیست" ><span style="color:red"> X </span> <span style="color:blue; font-size: large;"> '+chCount+' </span> <div/>'
           // '<div class="quantity-part" style="margin-top: 2px;"><input type="text" id="timeSence" placeholder="8:44:58:500" value="8:44:58:000" maxlength="12" allownegative="false" class="send_order_txtPrice number" dir="ltr" autocomplete="off" tick-size="10" />' +
           //   '<input class="ng-pristine ng-valid ng-not-empty ng-touched" type="checkbox" id="startSenceTime" name="startedSendRequest"></div></div>'
         );
