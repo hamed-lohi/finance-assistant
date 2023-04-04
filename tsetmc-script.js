@@ -80,7 +80,7 @@ $(window).on("load", function () {
 
         maxCount = maxCount > chCount ? maxCount : chCount;
 
-        if (chCount <= maxCount-2 && !$(this).hasClass("secSep")) {
+        if (chCount < maxCount && !$(this).hasClass("secSep")) {
           $(this).hide();
         }else{
           $(this).show();
@@ -88,7 +88,8 @@ $(window).on("load", function () {
 
         if ($("#del-btn-div-" + idd).length) return;
 
-        var countTag = (chCount > maxCount-2 && !$(this).hasClass("secSep")) ? '<span style="color:blue; font-size: large;"> '+chCount+' </span>' : '';
+        //var countTag = (chCount > maxCount-2 && !$(this).hasClass("secSep")) ? '<span style="color:blue; font-size: large;"> '+chCount+' </span>' : '';
+        var countTag = '';
 
         $(this).append(
           '<div id="del-btn-div-' +
