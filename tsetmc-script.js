@@ -2,6 +2,7 @@
 var rmArr = [];
 var chArr = [];
 var flag = false;
+var maxCount = 2;
 
 $(window).on("load", function () {
   if (window.location.host != "www.tsetmc.com") return;
@@ -77,12 +78,22 @@ $(window).on("load", function () {
           $(this).hide();
         }
 
+        maxCount = maxCount > chCount ? maxCount : chCount;
+
+        if ((chCount < 2 || chCount <= maxCount-2) && !$(this).hasClass("secSep")) {
+          $(this).hide();
+        }else{
+          $(this).show();
+        }
+
         if ($("#del-btn-div-" + idd).length) return;
+
+        var countTag = (chCount > 1 && chCount > maxCount-2) ? '<span style="color:blue; font-size: large;"> '+chCount+' </span>' : '';
 
         $(this).append(
           '<div id="del-btn-div-' +
             idd +
-            '" class="t0c" style="width:45px" tooltip="حذف از لیست" ><span style="color:red"> X </span> <span style="color:blue; font-size: large;"> '+chCount+' </span> <div/>'
+            '" class="t0c" style="width:45px" tooltip="حذف از لیست" ><span style="color:red;"> X </span> '+countTag+' <div/>'
           // '<div class="quantity-part" style="margin-top: 2px;"><input type="text" id="timeSence" placeholder="8:44:58:500" value="8:44:58:000" maxlength="12" allownegative="false" class="send_order_txtPrice number" dir="ltr" autocomplete="off" tick-size="10" />' +
           //   '<input class="ng-pristine ng-valid ng-not-empty ng-touched" type="checkbox" id="startSenceTime" name="startedSendRequest"></div></div>'
         );
