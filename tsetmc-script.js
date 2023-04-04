@@ -67,7 +67,7 @@ $(window).on("load", function () {
         if(!chArr.some((x) => x.id == idd && x.title == title))
         {
           chArr.push({id:idd, title:title, time: Date.now()});
-          chArr = chArr.filter((x) => x.time > (Date.now()-50000));
+          chArr = chArr.filter((x) => x.time > (Date.now()-30000));
           //console.log(chArr);
         }
         
