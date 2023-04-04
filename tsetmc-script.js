@@ -51,7 +51,7 @@ $(window).on("load", function () {
       //console.log(rmArr);
 
       let divs = $("#display #main>div");
-
+      maxCount--;
       divs.each(function (i) {
 
         let idd = $(this).prop("id");
