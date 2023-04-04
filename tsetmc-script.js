@@ -2,7 +2,7 @@
 var rmArr = [];
 var chArr = [];
 var flag = false;
-var maxCount = 2;
+var maxCount = 1;
 
 $(window).on("load", function () {
   if (window.location.host != "www.tsetmc.com") return;
@@ -80,7 +80,7 @@ $(window).on("load", function () {
 
         maxCount = maxCount > chCount ? maxCount : chCount;
 
-        if ((chCount < 2 || chCount <= maxCount-2) && !$(this).hasClass("secSep")) {
+        if (chCount <= maxCount-2 && !$(this).hasClass("secSep")) {
           $(this).hide();
         }else{
           $(this).show();
@@ -88,7 +88,7 @@ $(window).on("load", function () {
 
         if ($("#del-btn-div-" + idd).length) return;
 
-        var countTag = (chCount > 1 && chCount > maxCount-2) ? '<span style="color:blue; font-size: large;"> '+chCount+' </span>' : '';
+        var countTag = (chCount > maxCount-2 && !$(this).hasClass("secSep")) ? '<span style="color:blue; font-size: large;"> '+chCount+' </span>' : '';
 
         $(this).append(
           '<div id="del-btn-div-' +
