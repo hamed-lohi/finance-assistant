@@ -1,8 +1,9 @@
 //const p2e = (s) => s.replace(/[۰-۹]/g, (d) => "۰۱۲۳۴۵۶۷۸۹".indexOf(d));
 var rmArr = [];
 var chArr = [];
+var grpArr = [];
 var flag = false;
-var maxCount = 1;
+//var maxCount = 1;
 
 $(window).on("load", function () {
   if (window.location.host != "www.tsetmc.com") return;
@@ -51,7 +52,7 @@ $(window).on("load", function () {
       //console.log(rmArr);
 
       let divs = $("#display #main>div");
-      maxCount--;
+      //maxCount--;
       divs.each(function (i) {
 
         let idd = $(this).prop("id");
@@ -67,29 +68,35 @@ $(window).on("load", function () {
         if(!chArr.some((x) => x.id == idd && x.title == title))
         {
           chArr.push({id:idd, title:title, time: Date.now()});
-          chArr = chArr.filter((x) => x.time > (Date.now()-30000));
+          chArr = chArr.filter((x) => x.time > (Date.now()-50000));
           //console.log(chArr);
         }
         
         var chCount = chArr.filter((x) => x.id == idd).length;
+
+        grpArr = grpArr.filter((x)=> x.id != idd);
+
+        if (!$(this).hasClass("secSep")) {
+          grpArr.push({id: idd, chCount: chCount});
+        }
 
         if (rmArr && rmArr.some((x) => x == idd)) {
           //console.log("iid = " + idd);
           $(this).hide();
         }
 
-        maxCount = maxCount > chCount ? maxCount : chCount;
+        //maxCount = maxCount > chCount ? maxCount : chCount;
 
-        if (chCount < maxCount && !$(this).hasClass("secSep")) {
-          $(this).hide();
-        }else{
-          $(this).show();
-        }
+        // if (chCount < maxCount && !$(this).hasClass("secSep")) {
+        //   $(this).hide();
+        // }else{
+        //   $(this).show();
+        // }
 
         if ($("#del-btn-div-" + idd).length) return;
 
-        //var countTag = (chCount > maxCount-2 && !$(this).hasClass("secSep")) ? '<span style="color:blue; font-size: large;"> '+chCount+' </span>' : '';
-        var countTag = '';
+        var countTag = !$(this).hasClass("secSep") ? '<span style="color:blue;"> '+chCount+' </span>' : '';
+        //var countTag = '';
 
         $(this).append(
           '<div id="del-btn-div-' +
@@ -114,7 +121,18 @@ $(window).on("load", function () {
     });
   }, 500);
 
-  //setInterval(function () {}, 600);
+  setInterval(function () {
 
-  // }
-});
+    var max_of_array = Math.max.apply(Math, grpArr.map(a=> a.chCount));
+    
+    grpArr.forEach((gr, i)=> {
+      //console.log(gr);
+      if(gr.chCount == max_of_array && (!rmArr || !rmArr.some((x) => x == gr.id)))
+        $("#" + gr.id).show();
+      else
+        $("#" + gr.id).hide();
+    })
+
+  }, 5000);
+
+  });
