@@ -23,6 +23,8 @@
 
 var btnBuy = "";
 var btnSell = "";
+var sellBtnClickCount = 3;
+const sellBtnClickCount_const = 3;
 var pBtnSell;
 var flagw = true;
 var flaguw = true;
@@ -198,11 +200,22 @@ $(window).on("load", function () {
       (priceMin && pricem && pricem < priceMin)
     ) {
       //console.log(hajm +" - "+ hajmMin);
-      $(btnSell)[0].click();
+      if(0 < sellBtnClickCount){
+        $(btnSell)[0].click();
+        sellBtnClickCount--;
+      }else{
+        hajmMinElement.val("");
+        priceMinElement.val("");
+        sellBtnClickCount = sellBtnClickCount_const;
+      }
+      // for (let i = 0; i < sellBtnClickCount; i++) {
+      //   $(btnSell)[0].click();
+      //   await new Promise(r => setTimeout(r, 600));
+      // }
+      
       //document.getElementById("send_order_btnSendOrder").click();
 
-      hajmMinElement.val("");
-      priceMinElement.val("");
+      
     }
 
     /*$('.guide-sys.ng-binding.ng-scope').click(); $("[href='#/watch/technical']").click();*/
