@@ -1,7 +1,7 @@
 {
   "name": "Finance Assistant",
   "description": "Finance Assistant!",
-  "version": "3.4",
+  "version": "3.5",
   "manifest_version": 3,
   "content_scripts": [
     {
@@ -20,7 +20,10 @@
         "https://tadbir.exirbroker.com/*",
         "https://tadbir.exirbroker.ir/*",
         "https://pranatrader.ir/*",
-        "http://www.tsetmc.com/*"
+        "http://tsetmc.com/*",
+        "http://www.tsetmc.com/*",
+        "http://old.tsetmc.com/*",
+        "http://main.tsetmc.com/*"
       ],
       "js": [
         "jquery.min.js",

@@ -6,7 +6,15 @@ var flag = false;
 //var maxCount = 1;
 
 $(window).on("load", function () {
-  if (window.location.host != "www.tsetmc.com") return;
+  if (window.location.host != "main.tsetmc.com" && window.location.host != "old.tsetmc.com") return;
+
+  // const syncWait = ms => {
+  //   const end = Date.now() + ms
+  //   while (Date.now() < end) continue
+  // };
+  // syncWait(500);
+
+  console.log("Teest");
 
   $("#header0, #header").append(
     '<div id="clear-del-divs"' +
